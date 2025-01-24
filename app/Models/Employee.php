@@ -8,18 +8,20 @@ use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
-class Agency extends Model
+class Employee extends Model
 {
     use HasFactory, AsSource, Filterable, Attachable;
 
     protected $fillable = [
         'name',
-        'logo_path',
-        'partitaIva',
+        'surname',
+        'phone',
+        'email',
+        'agency_id',
     ];
-    
-    public function employees()
+
+    public function agency()
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(Agency::class);
     }
 }
