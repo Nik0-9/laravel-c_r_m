@@ -5,6 +5,7 @@ namespace App\Orchid\Resources;
 use App\Models\Agency;
 use Orchid\Crud\Resource;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Sight;
 use Orchid\Screen\TD;
 
@@ -25,6 +26,9 @@ class AgencyResource extends Resource
     public function fields(): array
     {
         return [
+            Picture::make('logo_path')
+            ->title('Logo')
+            ->targetRelativeUrl(),
             Input::make('name')
             ->title('Name')
             ->placeholder('Enter name here')
@@ -50,7 +54,10 @@ class AgencyResource extends Resource
     {
         return [
             TD::make('id'),
-
+            TD::make('logo_path', 'Logo')
+            ->render(function ($model) {
+                return "<img src='" . asset( $model->logo_path) . "' width='100'>";
+            }),
             TD::make('name', 'Name'),
             TD::make('partitaIva', 'Partita IVA'),
 
