@@ -5,6 +5,7 @@ namespace App\Orchid\Resources;
 use App\Models\Agency;
 use Orchid\Crud\Resource;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Sight;
 use Orchid\Screen\TD;
 
 class AgencyResource extends Resource
@@ -24,8 +25,19 @@ class AgencyResource extends Resource
     public function fields(): array
     {
         return [
-            Input::make('name')->title('Name')->placeholder('Enter name here'),
-            Input::make('partitaIva')->title('Parita IVA')->placeholder('enter partita IVA here'),
+            Input::make('name')
+            ->title('Name')
+            ->placeholder('Enter name here')
+            ->required()
+            ->maxlength(50),
+            Input::make('partitaIva')->
+            title('Parita IVA')->
+            placeholder('enter partita IVA here')
+            ->required()
+            ->minlength(11)
+            ->maxlength(11)
+            ->rule('unique:agencies,partitaIva|numeric|')
+            ->mask('99999999999'),
         ];
     }
 
@@ -38,6 +50,9 @@ class AgencyResource extends Resource
     {
         return [
             TD::make('id'),
+
+            TD::make('name', 'Name'),
+            TD::make('partitaIva', 'Partita IVA'),
 
             TD::make('created_at', 'Date of creation')
                 ->render(function ($model) {
