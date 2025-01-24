@@ -73,7 +73,13 @@ class AgencyResource extends Resource
      */
     public function legend(): array
     {
-        return [];
+        return [
+            Sight::make('id'),
+            Sight::make('name', 'Agency name'),
+            Sight::make('partitaIva', 'Partita Iva'),
+            Sight::make('created_at', 'Date of creation'),
+            Sight::make('updated_at', 'Date of update'),
+        ];
     }
 
     /**
