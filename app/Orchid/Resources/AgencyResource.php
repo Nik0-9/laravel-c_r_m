@@ -82,6 +82,10 @@ class AgencyResource extends Resource
     {
         return [
             Sight::make('id'),
+            Sight::make('logo_path', 'Logo')
+            ->render(function ($model) {
+                return "<img src='" . asset( $model->logo_path) . "' width='100'>";
+            }),
             Sight::make('name', 'Agency name'),
             Sight::make('partitaIva', 'Partita Iva'),
             Sight::make('created_at', 'Date of creation'),
